@@ -1,0 +1,15 @@
+/target
+
+**/*.rs.bk
+
+.env
+.env.*
+!.env.example
+
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+flamegraph.svg
+perf.data*
