@@ -1,0 +1,14 @@
+{
+    servers {
+        protocols h1 h2
+    }
+}
+
+localhost {
+    tls internal
+    reverse_proxy myapp:3000
+}
+
+shortin.duckdns.org {
+    reverse_proxy myapp:3000
+}

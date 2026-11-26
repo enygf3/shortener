@@ -17,16 +17,16 @@ impl AppRouter {
     pub(crate) async fn shortened(State(store): State<store::Store>, Json(request): Json<ShortenedRequest>) -> ShortenedResponse {
         let url = request.url;
         let host = Self::BASE_URL;
-        let result = store.put_url(url).await;
-        let code = result.1;
-        let short_url = format!("http://{host}/{code}");
+        let result = store.put_url(&url).await;
+        let code = result.unwrap();
+        let short_url = format!("https://{host}/{code}");
         ShortenedResponse::new(Option::from(HashMap::from([
             (String::from("url"), short_url)
         ])), None)
     }
 
     pub(crate) async fn redirect(State(store): State<store::Store>, Path(code): Path<String>) -> Result<Redirect, StatusCode> {
-        let url = store.get_url(code).await.unwrap();
-        Ok(Redirect::to(&url))
+        let url = store.get_url(&code).await.unwrap();
+        Ok(Redirect::to(&url.unwrap()))
     }
 }
