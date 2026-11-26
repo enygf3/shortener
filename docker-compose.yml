@@ -7,7 +7,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: shortener
     ports:
-      - "127.0.0.1:5432:5432"   # только с самого сервера
+      - "127.0.0.1:5432:5432"
     volumes:
       - data:/var/lib/postgresql
     healthcheck:
@@ -20,7 +20,7 @@ services:
     restart: unless-stopped
     environment:
       DATABASE_URL: postgres://app:${POSTGRES_PASSWORD}@postgres:5432/shortener
-      BASE_URL: https://shortin.duckdns.org
+      BASE_URL: https://shortin.up.railway.app
     depends_on:
       postgres:
         condition: service_healthy
